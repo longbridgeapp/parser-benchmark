@@ -48,14 +48,20 @@ fn parse(input: &str) -> Vec<String> {
 mod tests {
     use super::*;
 
+    #[track_caller]
+    fn assert_matches_code(codes: &str, input: &str) {
+        assert_eq!(codes, parse(input).join(", "))
+    }
+
     #[test]
     fn it_works() {
         let raw = include_str!("../tests/example.md");
 
-        let codes = parse(raw);
-        assert_eq!(
-            "00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA",
-            codes.join(", ")
-        );
+        assert_matches_code("00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA", raw);
+    }
+
+    #[test]
+    fn test_routers_format() {
+        assert_matches_code("EDBL", "公司（EDBL.O）宣布")
     }
 }
