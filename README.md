@@ -18,6 +18,13 @@ func main() {
 }
 ```
 
+### Benchmark
+
+```
+BenchmarkParse-8   	           561684	      2112 ns/op	    3056 B/op	      81 allocs/op
+BenchmarkParseLongText-8   	   59056	     17410 ns/op	   28384 B/op	     617 allocs/op
+```
+
 ## Usage in Rust
 
 Add `stockcode-parser` in your `Cargo.toml`
