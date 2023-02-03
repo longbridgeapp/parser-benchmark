@@ -7,10 +7,16 @@ type StockCodeParser Peg {
 
 Item <- Line* !.
 Line <- Stock / ANY 
-Stock <- ( '$'? Code (Suffix / Suffix? '$') / '$' Code / '(' Code ')' )
+Stock <- ( 
+  '$'? Code (Suffix / Suffix? '$') / 
+  '$' Code / 
+  '(' Code ')' /  
+  '[' Code ']'
+)
+
 Code <- (USCode / HKCode / ACode)
 USCode <- Letter+
-HKCode <- Number+ / '0'* Number
+HKCode <- Number+
 ACode <- Number+
 
 Letter <- [a-z] / [A-Z]

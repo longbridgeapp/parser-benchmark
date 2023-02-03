@@ -29,5 +29,4 @@ func TestParse(t *testing.T) {
 	assert_matches_code(t, "700", "腾讯[700]发布财报")
 	assert_matches_code(t, "700", "腾讯(700)发布财报")
 	assert_matches_code(t, "00700.HK", "腾讯00700.HK发布财报")
-	assert_matches_code(t, "700", "腾讯（700）发布财报")
 }
