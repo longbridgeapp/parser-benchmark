@@ -11,7 +11,8 @@ Stock <- (
   '$'? Code (Suffix / Suffix? '$') / 
   '$' Code / 
   '(' Code ')' /  
-  '[' Code ']'
+  '[' Code ']' /
+  '(' ('NYSE' / 'NASDAQ') ('：' / ':') SP* Code ')'
 )
 
 Code <- (USCode / HKCode / ACode)
@@ -25,3 +26,4 @@ Number <- [0-9]
 Suffix <- '.' (Market / "O")
 Market <- 'HK' / 'US' / 'SG' / 'SH' / 'SZ' / 'KL'
 ANY <- (.)
+SP <- " " / "\t"

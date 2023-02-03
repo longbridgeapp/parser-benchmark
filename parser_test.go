@@ -34,6 +34,8 @@ func TestParse(t *testing.T) {
 	assert_matches_code(t, "00700.HK", "腾讯00700.HK发布财报")
 	assert_matches_code(t, "TSLA", "Tesla Inc (TSLA.O) will finalise a deal to invest in a production facility in his country")
 	assert_matches_code(t, "TSLA", "Only the fortune of Tesla's (TSLA)")
+	assert_matches_code(t, "A, B, DE, FU", "安捷伦科技 (NYSE：A) (NYSE： B), (NYSE:FU) (NYSE: DE)")
+	assert_matches_code(t, "A, B, DE, FU", "安捷伦科技 (NASDAQ：A) (NASDAQ： B), (NASDAQ:FU) (NASDAQ: DE)")
 }
 
 func TestSpecialMarket(t *testing.T) {
