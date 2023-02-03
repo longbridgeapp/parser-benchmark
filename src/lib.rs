@@ -8,7 +8,8 @@ use pest::Parser;
 #[grammar = "grammar.pest"]
 struct StockCodeParser;
 
-fn parse(input: &str) -> Vec<String> {
+/// Returns matched stock code as `Vec<String>`
+pub fn parse(input: &str) -> Vec<String> {
     let mut codes: HashMap<String, bool> = HashMap::new();
 
     let pairs = StockCodeParser::parse(Rule::item, input).unwrap();
