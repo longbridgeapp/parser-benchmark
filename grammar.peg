@@ -6,12 +6,24 @@ type StockCodeParser Peg {
 }
 
 Item <- Line* !.
-Line <- Stock / ANY 
+Line <- Stock / OTHER 
+
+# Any other characters, to ignore
+OTHER <- (.)
+
+# Match stockcode
 Stock <- ( 
+  # $BABA$, $BABA.US$, 00700.HK, 00700
   '$'? Code (Suffix / Suffix? '$') / 
+
+  # $BABA
   '$' Code / 
+
+  # (0001) or [BABA]
   '(' Code ')' /  
   '[' Code ']' /
+
+  # (NYSE: A)
   '(' ('NYSE' / 'NASDAQ') ('：' / ':') SP* Code ')'
 )
 
@@ -25,5 +37,6 @@ Number <- [0-9]
 
 Suffix <- '.' (Market / "O")
 Market <- 'HK' / 'US' / 'SG' / 'SH' / 'SZ' / 'KL'
-ANY <- (.)
+
+# Any spaces
 SP <- " " / "\t"
