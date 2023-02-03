@@ -54,7 +54,7 @@ func TestExample(t *testing.T) {
 
 func BenchmarkParse(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		stockcodeparser.Parse("阿里巴巴$BABA.US发布财报")
+		stockcodeparser.Parse("阿里巴巴 $BABA.US 发布财报")
 	}
 }
 

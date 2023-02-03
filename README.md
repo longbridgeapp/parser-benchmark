@@ -43,6 +43,13 @@ let codes = parse("药明生物 (02269.HK) 及隆基绿能科技 (601012.SH) 纳
 // ["02269.HK", "601012.SH"]
 ```
 
+### Benchmark
+
+```
+parse                   time:   [1.0808 µs 1.1019 µs 1.1330 µs]
+parse_long              time:   [10.765 µs 10.839 µs 10.945 µs]
+```
+
 ## Development
 
 Use [https://github.com/pointlander/peg](https://github.com/pointlander/peg)
