@@ -1,0 +1,21 @@
+package stockcode
+
+type StockCodeParser Peg {
+  pos int
+  peekPos int
+}
+
+Item <- Line* !.
+Line <- Stock / ANY 
+Stock <- ( '$'? Code (Suffix / Suffix? '$') / '$' Code / '(' Code ')' )
+Code <- (USCode / HKCode / ACode)
+USCode <- Letter+
+HKCode <- Number+ / '0'* Number
+ACode <- Number+
+
+Letter <- [a-z] / [A-Z]
+Number <- [0-9]
+
+Suffix <- '.' (Market / 'O')
+Market <- 'HK' / 'US' / 'SG' / 'SH' / 'SZ'
+ANY <- (.)
