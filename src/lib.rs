@@ -54,7 +54,24 @@ mod tests {
     }
 
     #[test]
-    fn it_works() {
+    fn test_parse() {
+        assert_matches_code("BABA.US", "Alibaba BABA.US published its Q2 results");
+        assert_matches_code("BABA", "Alibaba $BABA published its Q2 results");
+        assert_matches_code("BABA", "阿里巴巴$BABA发布财报");
+        assert_matches_code("BABA.US", "阿里巴巴$BABA.US发布财报");
+        assert_matches_code("BABA.US", "阿里巴巴$BABA.US$发布财报");
+        assert_matches_code("BABA.US", "阿里巴巴BABA.US$发布财报");
+        assert_matches_code("BABA.US", "阿里巴巴BABA.US发布财报");
+        assert_matches_code("BABA", "阿里巴巴BABA$发布财报");
+        assert_matches_code("", "腾讯700发布财报");
+        assert_matches_code("700", "腾讯[700]发布财报");
+        assert_matches_code("700", "腾讯(700)发布财报");
+        assert_matches_code("00700.HK", "腾讯00700.HK发布财报");
+        assert_matches_code("700", "腾讯（700）发布财报");
+    }
+
+    #[test]
+    fn test_example() {
         let raw = include_str!("../tests/example.md");
 
         assert_matches_code("00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA", raw);
@@ -62,6 +79,8 @@ mod tests {
 
     #[test]
     fn test_routers_format() {
-        assert_matches_code("EDBL", "公司（EDBL.O）宣布")
+        assert_matches_code("EDBL", "公司（EDBL.O）宣布");
+        assert_matches_code("EDBL, SA", "公司（EDBL.O,SA.O）宣布");
+        assert_matches_code("EDBL, SA", "EDBL.O,SA.O）宣布");
     }
 }

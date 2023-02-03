@@ -5,7 +5,14 @@ other = _{ ANY }
 
 WHITESPACE = _{ " " | "\t" | NEWLINE }
 
-stock = ${ "$"? ~ code ~ ((suffix ~ "$"?) | (suffix? ~ "$")) } 
+stock = ${ 
+  "$"? ~ code ~ ((suffix ~ "$"?) | (suffix? ~ "$")) |
+  "$" ~ code |
+  open_bracket ~ code ~ close_bracket
+} 
+
+open_bracket = _{ "(" | "（" | "[" }
+close_bracket = _{ ")" | "）" | "]" }
 
 us_code = @{ ('A'..'Z' | NUMBER)+ }
 hk_code = @{ NUMBER{6} | "0"+ ~ NUMBER }
