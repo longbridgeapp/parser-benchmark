@@ -4,7 +4,7 @@
 路透社格式：可食用花园股份公司（EDBL.O）宣布以 1,020 万没有公开募股。
 http://url.us
 访问地址为 foo-bar.US
-President Joko Widodo is confident Tesla Inc (TSLA.O) will finalise a deal to invest in a production facility in his country, having offered the U.S. car maker incentives ranging from tax breaks to a concession to mine nickel.
+President Joko Widodo is confident Tesla Inc (TSLA.O), will finalise a deal to invest in a production facility in his country, having offered the U.S. car maker incentives ranging from tax breaks to a concession to mine nickel.
 (marketscreener.com) Stock prices in London opened mostly lower on Friday, after a week dominated by interest rate decisions, which were all in line with market expectations. The FTSE 100 index opened up just 1.56 points at 7,821.72. The FTSE 250 was down 176.72 points, 0.9%, at 20,437.97, and the AIM All-Share was down 3.34 points, 0.4%, at 885.42. The Cboe UK 100...https://www.marketscreener.
 Asian stock markets have gained after the Federal Reserve said the U.S.
 美股重现 FOMO 投机热潮，ARKK 等成长风格及高投机 MEME 类股 (BBBY、AMC、GME) 都曾被连续爆拉，AMC 院线涨超 6%，GME 涨 4%，3B 家居涨超 18%。

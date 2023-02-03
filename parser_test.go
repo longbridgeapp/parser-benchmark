@@ -35,6 +35,11 @@ func TestParse(t *testing.T) {
 	assert_matches_code(t, "TSLA", "Tesla Inc (TSLA.O) will finalise a deal to invest in a production facility in his country")
 }
 
+func TestSpecialMarket(t *testing.T) {
+	assert_matches_code(t, "AB.US, Q.US", "美股简短的股票代码 Q.US, AB.US")
+	assert_matches_code(t, "NICH.KL", "Malaysia Market (NICH.KL)")
+}
+
 func TestExample(t *testing.T) {
 	raw, err := ioutil.ReadFile("tests/example.md")
 	if err != nil {

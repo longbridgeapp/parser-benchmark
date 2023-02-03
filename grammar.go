@@ -586,7 +586,7 @@ func (p *StockCodeParser) Init(options ...func(*StockCodeParser) error) error {
 			position, tokenIndex = position41, tokenIndex41
 			return false
 		},
-		/* 9 Suffix <- <('.' (Market / 'O'))> */
+		/* 9 Suffix <- <('.' (Market / ('o' / 'O')))> */
 		func() bool {
 			position43, tokenIndex43 := position, tokenIndex
 			{
@@ -625,6 +625,15 @@ func (p *StockCodeParser) Init(options ...func(*StockCodeParser) error) error {
 							position, tokenIndex = position48, tokenIndex48
 							{
 								switch buffer[position] {
+								case 'K':
+									if buffer[position] != rune('K') {
+										goto l46
+									}
+									position++
+									if buffer[position] != rune('L') {
+										goto l46
+									}
+									position++
 								case 'S':
 									if buffer[position] != rune('S') {
 										goto l46
@@ -662,10 +671,21 @@ func (p *StockCodeParser) Init(options ...func(*StockCodeParser) error) error {
 					goto l45
 				l46:
 					position, tokenIndex = position45, tokenIndex45
-					if buffer[position] != rune('O') {
-						goto l43
+					{
+						position52, tokenIndex52 := position, tokenIndex
+						if buffer[position] != rune('o') {
+							goto l53
+						}
+						position++
+						goto l52
+					l53:
+						position, tokenIndex = position52, tokenIndex52
+						if buffer[position] != rune('O') {
+							goto l43
+						}
+						position++
 					}
-					position++
+				l52:
 				}
 			l45:
 				add(ruleSuffix, position44)
@@ -675,7 +695,7 @@ func (p *StockCodeParser) Init(options ...func(*StockCodeParser) error) error {
 			position, tokenIndex = position43, tokenIndex43
 			return false
 		},
-		/* 10 Market <- <(('S' 'G') / ('S' 'H') / ((&('S') ('S' 'Z')) | (&('U') ('U' 'S')) | (&('H') ('H' 'K'))))> */
+		/* 10 Market <- <(('S' 'G') / ('S' 'H') / ((&('K') ('K' 'L')) | (&('S') ('S' 'Z')) | (&('U') ('U' 'S')) | (&('H') ('H' 'K'))))> */
 		nil,
 		/* 11 ANY <- <.> */
 		nil,

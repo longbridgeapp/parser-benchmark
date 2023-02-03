@@ -22,6 +22,6 @@ ACode <- Number+
 Letter <- [A-Z]
 Number <- [0-9]
 
-Suffix <- '.' (Market / 'O')
-Market <- 'HK' / 'US' / 'SG' / 'SH' / 'SZ'
+Suffix <- '.' (Market / "O")
+Market <- 'HK' / 'US' / 'SG' / 'SH' / 'SZ' / 'KL'
 ANY <- (.)
