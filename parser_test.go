@@ -40,5 +40,5 @@ func TestExample(t *testing.T) {
 		panic(err)
 	}
 
-	assert_matches_code(t, "00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA, bar.US", string(raw))
+	assert_matches_code(t, "00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA", string(raw))
 }

@@ -19,7 +19,7 @@ USCode <- Letter+
 HKCode <- Number+
 ACode <- Number+
 
-Letter <- [a-z] / [A-Z]
+Letter <- [A-Z]
 Number <- [0-9]
 
 Suffix <- '.' (Market / 'O')
