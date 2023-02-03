@@ -1,0 +1,16 @@
+item = _{ SOI ~ line* ~ EOI }
+line = _{ stock | other }
+
+other = _{ ANY }
+
+WHITESPACE = _{ " " | "\t" | NEWLINE }
+
+stock = ${ "$"? ~ code ~ ((suffix ~ "$"?) | (suffix? ~ "$")) } 
+
+us_code = @{ ('A'..'Z' | NUMBER)+ }
+hk_code = @{ NUMBER{6} | "0"+ ~ NUMBER }
+a_code = @{ NUMBER{6} }
+
+code = @{ us_code | hk_code | a_code }
+suffix = _{ "." ~ (market | "O") }
+market = @{ ("HK" | "US" | "SG" | "SH" | "SZ") }
