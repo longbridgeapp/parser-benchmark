@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::Debug;
 
 use nom::branch::{alt, permutation};
 use nom::bytes::complete::*;
@@ -8,31 +9,23 @@ use nom::multi::*;
 use nom::sequence::*;
 use nom::IResult;
 
-enum Stock<'a> {
-    Code(&'a str),
-    Market(&'a str),
+#[derive(Debug, PartialEq, Clone)]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+enum Rule<'a> {
+    code(&'a str),
+    market(&'a str),
 }
 
 fn parse(input: &str) -> Vec<String> {
     let mut codes: HashMap<String, bool> = HashMap::new();
 
     let mut input = input;
-    while let Ok((rest, stock)) = stock(input) {
-        let mut code = String::from("");
-        let mut market = "";
-
-        match stock {
-            Stock::Code(s) => code = s.to_owned(),
-            Stock::Market(s) => market = s,
-        }
-
-        if code.len() == 0 {
-            continue;
-        }
-
-        if market.len() > 0 {
+    while let Ok((rest, o)) = stock(input) {
+        let mut code = String::from(o.0);
+        if !o.1.is_empty() {
             code.push('.');
-            code.push_str(market)
+            code.push_str(o.1);
         }
 
         codes.insert(code, true);
@@ -42,23 +35,36 @@ fn parse(input: &str) -> Vec<String> {
     codes.into_keys().collect()
 }
 
-fn stock(input: &str) -> IResult<&str, Stock> {
-    let (retain, matched) = delimited(
-        // start with $
-        tag("$"),
-        alt((preceded(code, market), code)),
-        // end with $
-        tag("$"),
-    )(input)?;
+fn stock(input: &str) -> IResult<&str, (&str, &str)> {
+    let (retain, matched) = alt((
+        // $700$
+        delimited(
+            tag("$"),
+            alt((
+                terminated(code, char('$')),
+                terminated(terminated(code, market), tag("$")),
+            )),
+            char('$'),
+        ),
+        // $700
+        preceded(char('$'), code),
+        // [700]
+        delimited(char('['), code, char(']')),
+        // (700)
+        delimited(char('('), code, char(')')),
+    ))(input)?;
 
-    Ok((retain, Stock::Code(matched)))
+    Ok((retain, matched))
 }
 
-fn code(input: &str) -> IResult<&str, &str> {
-    alt((
-        take_while1(move |c: char| c.is_ascii_uppercase()), // us_code
-        digit1,                                             // uk_code | a_code
-    ))(input)
+fn code(input: &str) -> IResult<&str, (&str, &str)> {
+    pair(
+        alt((
+            take_while1(|c: char| c.is_ascii_uppercase()), // us_code
+            digit1,                                        // uk_code | a_code
+        )),
+        alt((market, value("", tag("")))),
+    )(input)
 }
 
 fn market(input: &str) -> IResult<&str, &str> {
@@ -91,24 +97,25 @@ mod tests {
 
     #[test]
     fn test_code() {
-        assert_eq!(Ok((".foo", "700")), code("700.foo"));
-        assert_eq!(Ok(("", "1")), code("1"));
-        assert_eq!(Ok(("A", "001029")), code("001029A"));
-        assert_eq!(Ok(("", "FOO")), code("FOO"));
+        assert_eq!(Ok((".foo", ("700", ""))), code("700.foo"));
+        assert_eq!(Ok(("", ("1", ""))), code("1"));
+        assert_eq!(Ok(("A", ("001029", ""))), code("001029A"));
+        assert_eq!(Ok(("", ("FOO", ""))), code("FOO"));
+        assert_eq!(Ok(("", ("FOO", "US"))), code("FOO.US"));
         assert!(code("foo").is_err());
     }
 
     #[test]
-    fn test_market() {
-        assert_eq!(Ok(("bar", "FOO")), code("$FOO$bar"));
-        assert_eq!(Ok(("bar", "foo.US")), code("aaa$FOO.US$bar"));
-        assert_eq!(Ok(("bar", "foo.US")), code("$FOO.US$bar"));
+    fn test_stock() {
+        assert_eq!(vec!["FOO"], parse("$FOO$bar"));
+        assert_eq!(vec!["FOO.US"], parse("aaa$FOO.US$bar"));
+        assert_eq!(vec!["FOO.US"], parse("$FOO.US$bar"));
     }
 
     #[test]
     fn test_parse() {
         let raw = include_str!("../tests/example.md");
 
-        assert_eq!(vec![""], parse(raw));
+        assert_eq!(Vec::<String>::new(), parse(raw));
     }
 }
