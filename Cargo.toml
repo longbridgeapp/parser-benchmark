@@ -4,6 +4,7 @@ name = "stockcode-parser"
 version = "0.1.0"
 
 [dependencies]
+nom = "7"
 pest = "2.5.2"
 pest_derive = "2.5.2"
 
