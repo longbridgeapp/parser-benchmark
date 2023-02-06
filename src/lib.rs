@@ -3,6 +3,7 @@ use std::{collections::HashMap, fmt::Debug};
 use pest_derive::Parser;
 
 use pest::Parser;
+pub mod nom_parser;
 
 #[derive(Parser)]
 #[grammar = "grammar.pest"]
