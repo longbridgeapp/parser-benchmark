@@ -38,7 +38,9 @@ pub fn parse(input: &str) -> Vec<String> {
         input = rest;
     }
 
-    codes.into_keys().collect()
+    let mut out: Vec<String> = codes.into_keys().collect();
+    out.sort_by(|a, b| a.cmp(&b));
+    out
 }
 
 fn line(input: &str) -> IResult<&str, Rule> {
@@ -54,32 +56,35 @@ fn stock(input: &str) -> IResult<&str, Rule> {
     let (retain, matched) = alt((
         // $700$
         delimited(tag("$"), code_with_market, opt(char('$'))),
+        terminated(code_with_market, char('$')),
         // [700]
         delimited(char('['), code_with_market, char(']')),
         // (700)
         delimited(char('('), code_with_market, char(')')),
+        //（700） in full-width
+        delimited(char('（'), code_with_market, char('）')),
         // BABA.US
-        pair(code, opt(market)),
+        pair(code, cond(true, market)),
     ))(input)?;
 
     Ok((retain, Rule::stock(matched.0, matched.1)))
 }
 
 fn code_with_market(input: &str) -> IResult<&str, (&str, Option<&str>)> {
-    pair(
+    alt((
+        // BABA.US, BABA
+        pair(code, opt(market)),
+    ))(input)
+}
+
+fn code(input: &str) -> IResult<&str, &str> {
+    terminated(
         alt((
             take_while1(|c: char| c.is_ascii_uppercase()), // us_code
             digit1,                                        // uk_code | a_code
         )),
-        opt(market),
+        opt(tag(".O")),
     )(input)
-}
-
-fn code(input: &str) -> IResult<&str, &str> {
-    alt((
-        take_while1(|c: char| c.is_ascii_uppercase()), // us_code
-        digit1,                                        // uk_code | a_code
-    ))(input)
 }
 
 fn market(input: &str) -> IResult<&str, &str> {
@@ -161,6 +166,6 @@ mod tests {
     fn test_parse() {
         let raw = include_str!("../tests/example.md");
 
-        assert_eq!("00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA", parse(raw).join(", "));
+        assert_matches_code("00175.HK, 00175.US, 00231.HK, 00688.HK, 01179.HK, 02269.HK, 100688.SH, 601012.SH, BABA.US, EDBL, FUTU.US, TSLA", raw);
     }
 }
