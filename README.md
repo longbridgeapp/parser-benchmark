@@ -2,6 +2,8 @@
 
 Use a parser to detect stock symbols in a text file.
 
+And this is an example of how to write a parser in Go and Rust (Pest, Nom, rust-peg).
+
 ## Usage in Go
 
 ```go
@@ -46,11 +48,14 @@ let codes = parse("药明生物 (02269.HK) 及隆基绿能科技 (601012.SH) 纳
 ### Benchmark
 
 ```
-parse                   time:   [1.0808 µs 1.1019 µs 1.1330 µs]
-parse_long              time:   [10.765 µs 10.839 µs 10.945 µs]
+pest_parse              time:   [1.8119 µs 1.8898 µs 1.9863 µs]
+pest_parse_long         time:   [17.221 µs 17.804 µs 18.549 µs]
 
-nom_parse               time:   [427.68 ns 437.45 ns 450.43 ns]
-nom_parse_long          time:   [3.8786 µs 4.0044 µs 4.1775 µs]
+nom_parse               time:   [428.97 ns 443.55 ns 465.01 ns]
+nom_parse_long          time:   [3.8376 µs 4.0039 µs 4.2100 µs]
+
+peg_parse               time:   [975.58 ns 978.74 ns 982.76 ns]
+peg_parse_long          time:   [9.6195 µs 9.9444 µs 10.340 µs]
 ```
 
 ## Development

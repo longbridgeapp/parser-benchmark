@@ -9,7 +9,7 @@ line = _{ stock | other }
 
 other = _{ ANY }
 
-WHITESPACE = _{ " " | "\t" | NEWLINE }
+// WHITESPACE = _{ " " | "\t" | NEWLINE }
 
 stock = ${ 
   "$" ~ code ~ ((suffix ~ "$"?) | (suffix? ~ "$")) |
