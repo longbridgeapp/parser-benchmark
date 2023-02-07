@@ -1,4 +1,4 @@
-module github.com/longbridgeapp/stockcode-parser
+module github.com/longbridgeapp/parser-benchmark
 
 go 1.19
 

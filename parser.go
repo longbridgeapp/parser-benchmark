@@ -1,4 +1,4 @@
-package stockcode
+package parser_benchmark
 
 func Parse(input string) (out []string, err error) {
 	parser := StockCodeParser{Buffer: input}
