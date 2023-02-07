@@ -48,6 +48,9 @@ let codes = parse("药明生物 (02269.HK) 及隆基绿能科技 (601012.SH) 纳
 ```
 parse                   time:   [1.0808 µs 1.1019 µs 1.1330 µs]
 parse_long              time:   [10.765 µs 10.839 µs 10.945 µs]
+
+nom_parse               time:   [427.68 ns 437.45 ns 450.43 ns]
+nom_parse_long          time:   [3.8786 µs 4.0044 µs 4.1775 µs]
 ```
 
 ## Development
