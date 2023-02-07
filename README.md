@@ -1,6 +1,6 @@
 # Parser benchmark
 
-This is an example of how to write a parser in Go and Rust (Pest, Nom, rust-peg).
+This is [Ticker symbol](https://en.wikipedia.org/wiki/Ticker_symbol) parse example to show how to write a parser in Go and Rust (Pest, Nom, rust-peg).
 And run benchmarks to compare the performance.
 
 ## Parsers

@@ -9,7 +9,7 @@ line = _{ stock | other }
 
 other = _{ ANY }
 
-// WHITESPACE = _{ " " | "\t" | NEWLINE }
+WHITESPACE = _{ " " | "\t" | NEWLINE }
 
 stock = ${ 
   "$" ~ code ~ ((suffix ~ "$"?) | (suffix? ~ "$")) |
@@ -23,11 +23,12 @@ open_bracket = _{ "(" | "（" | "[" }
 close_bracket = _{ ")" | "）" | "]" }
 
 us_code = @{ ('A'..'Z' | NUMBER)+ }
-hk_code = @{ NUMBER{6} | "0"+ ~ NUMBER }
+hk_code = @{ NUMBER{6} | ("0"+ ~ NUMBER+){6} }
 a_code = @{ NUMBER{6} }
 
 code = @{ us_code | hk_code | a_code }
-suffix = _{ "." ~ (market | "O") }
+suffix = _{ "." ~ (market |special_code) }
+special_code = _{ 'A'..'Z' | "PK" | "SC" | "NM" }
 market = @{ ("HK" | "US" | "SG" | "SH" | "SZ") }
 "##]
 struct StockCodeParser;
