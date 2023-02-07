@@ -27,7 +27,7 @@ hk_code = @{ NUMBER{6} | ("0"+ ~ NUMBER+){6} }
 a_code = @{ NUMBER{6} }
 
 code = @{ us_code | hk_code | a_code }
-suffix = _{ "." ~ (market |special_code) }
+suffix = _{ "." ~ (market | special_code) }
 special_code = _{ 'A'..'Z' | "PK" | "SC" | "NM" }
 market = @{ ("HK" | "US" | "SG" | "SH" | "SZ") }
 "##]
