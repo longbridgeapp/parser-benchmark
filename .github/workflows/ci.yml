@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   test_rust:
-    name: Test
+    name: Test Rust
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,8 +18,10 @@ jobs:
           key: ubuntu-test-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Test
         run: cargo test
+      - name: Bench
+        run: cargo bench
   test_go:
-    name: Test
+    name: Test Go
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,3 +33,5 @@ jobs:
           key: ubuntu-test-go-${{ hashFiles('**/go.sum') }}
       - name: Test
         run: go test ./...
+      - name: Bench
+        run: go test -bench=. ./...
