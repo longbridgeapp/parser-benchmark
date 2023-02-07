@@ -13,8 +13,8 @@ And run benchmarks to compare the performance.
 ### Benchmark in Go
 
 ```
-Benchmark_tdewolff_parse-8   	           561684	      2112 ns/op	    3056 B/op	      81 allocs/op
-Benchmark_tdewolff_parse-8   	   59056	     17410 ns/op	   28384 B/op	     617 allocs/op
+Benchmark_tdewolff_parse-8   	    561684	      2112 ns/op	    3056 B/op	      81 allocs/op
+Benchmark_tdewolff_parse_long-8    59056	     17410 ns/op	   28384 B/op	     617 allocs/op
 ```
 
 ### Benchmark in Rust
