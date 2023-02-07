@@ -1,59 +1,36 @@
-# Stock Parser
+# Parser benchmark
 
-Use a parser to detect stock symbols in a text file.
+This is an example of how to write a parser in Go and Rust (Pest, Nom, rust-peg).
+And run benchmarks to compare the performance.
 
-## Usage in Go
+## Parsers
 
-```go
-package main
+- [Pest](https://pest.rs)
+- [Nom](https://github.com/rust-bakery/nom)
+- [rust-peg](https://github.com/kevinmehall/rust-peg)
+- [tdewolff/parse](github.com/tdewolff/parse) - (Go)
 
-import (
-  "fmt"
-  "github.com/longbridgeapp/stockcode-parser"
-)
-
-func main() {
-  codes := stockcode.Parse("药明生物 (02269.HK) 及隆基绿能科技 (601012.SH) 纳入中港市场首选名单。")
-  // ["02269.HK", "601012.SH"]
-}
-```
-
-### Benchmark
+### Benchmark in Go
 
 ```
-BenchmarkParse-8   	           561684	      2112 ns/op	    3056 B/op	      81 allocs/op
-BenchmarkParseLongText-8   	   59056	     17410 ns/op	   28384 B/op	     617 allocs/op
+Benchmark_tdewolff_parse-8   	           561684	      2112 ns/op	    3056 B/op	      81 allocs/op
+Benchmark_tdewolff_parse-8   	   59056	     17410 ns/op	   28384 B/op	     617 allocs/op
 ```
 
-## Usage in Rust
-
-Add `stockcode-parser` in your `Cargo.toml`
+### Benchmark in Rust
 
 ```
-[dependencies]
-stockcode-parser = { version = "0.1.0", git = "https://github.com/longbridgeapp/stockcode-parser.git" }
+pest_parse              time:   [1.8119 µs 1.8898 µs 1.9863 µs]
+pest_parse_long         time:   [17.221 µs 17.804 µs 18.549 µs]
+
+nom_parse               time:   [428.97 ns 443.55 ns 465.01 ns]
+nom_parse_long          time:   [3.8376 µs 4.0039 µs 4.2100 µs]
+
+peg_parse               time:   [975.58 ns 978.74 ns 982.76 ns]
+peg_parse_long          time:   [9.6195 µs 9.9444 µs 10.340 µs]
 ```
 
-And then in your `main.rs`
-
-```rs
-use stockcode_parser::parse;
-
-let codes = parse("药明生物 (02269.HK) 及隆基绿能科技 (601012.SH) 纳入中港市场首选名单。");
-// ["02269.HK", "601012.SH"]
-```
-
-### Benchmark
-
-```
-parse                   time:   [1.0808 µs 1.1019 µs 1.1330 µs]
-parse_long              time:   [10.765 µs 10.839 µs 10.945 µs]
-
-nom_parse               time:   [427.68 ns 437.45 ns 450.43 ns]
-nom_parse_long          time:   [3.8786 µs 4.0044 µs 4.1775 µs]
-```
-
-## Development
+## Development in Go
 
 Use [https://github.com/pointlander/peg](https://github.com/pointlander/peg)
 

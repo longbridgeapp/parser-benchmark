@@ -4,9 +4,12 @@ name = "stockcode-parser"
 version = "0.1.0"
 
 [dependencies]
+faster-pest = "0.1.2"
+faster-pest-derive = "0.1.1"
 nom = "7"
-pest = "2.5.2"
-pest_derive = "2.5.2"
+peg = "0.8.1"
+pest = {version = "2.5.2"}# , path = "../../github/pest/pest"}
+pest_derive = {version = "2.5.2"}#, path = "../../github/pest/derive"}
 
 [dev-dependencies]
 criterion = "0.4.0"
