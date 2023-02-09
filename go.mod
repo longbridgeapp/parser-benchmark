@@ -2,8 +2,6 @@ module github.com/longbridgeapp/parser-benchmark
 
 go 1.19
 
-require github.com/tdewolff/parse/v2 v2.6.5
-
 require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/longbridgeapp/assert v1.1.0 // indirect

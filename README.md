@@ -8,14 +8,14 @@ And run benchmarks to compare the performance.
 - [Pest](https://pest.rs)
 - [Nom](https://github.com/rust-bakery/nom)
 - [rust-peg](https://github.com/kevinmehall/rust-peg)
-- [tdewolff/parse](github.com/tdewolff/parse) - (Go)
+- [pointlander/peg](https://github.com/pointlander/peg) - (Go)
 
 ### Benchmark in Go
 
 ```
-Benchmark_tdewolff_parse-8         	  489860	      2729 ns/op
-Benchmark_tdewolff_parse_long-8    	   64664	     21624 ns/op
-Benchmark_tdewolff_parse_large-8   	    1910	    589914 ns/op
+Benchmark_pointlander_peg-8       489860	      2729 ns/op
+Benchmark_pointlander_peg-8    	   64664	     21624 ns/op
+Benchmark_pointlander_peg-8   	    1910	    589914 ns/op
 ```
 
 ### Benchmark in Rust
